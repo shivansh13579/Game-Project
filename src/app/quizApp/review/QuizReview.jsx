@@ -23,7 +23,7 @@ const ReviewQuestions = () => {
 
   if (!quiz) {
     return (
-      <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6">
+      <div className="min-h-screen bg-gradient-to-r bg-[#16223F] text-white p-6">
         <header className="text-yellow-400 text-2xl md:text-3xl font-bold mb-8 flex items-center justify-center gap-4">
           <button onClick={() => window.history.back()}>
             <ArrowLeft className="hover:text-white transition-all duration-300 transform hover:scale-110" />
@@ -36,7 +36,7 @@ const ReviewQuestions = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-zinc-900 to-zinc-400 text-white p-8">
+    <div className="min-h-screen bg-gradient-to-r bg-[#16223F] text-white p-8">
       <header className="text-yellow-400 text-2xl md:text-3xl font-bold mb-8 flex justify-center items-center gap-4 pt-6">
         <button onClick={() => window.history.back()}>
           <ArrowLeft className="hover:text-white transition-all duration-300 transform hover:scale-110" />
@@ -44,7 +44,7 @@ const ReviewQuestions = () => {
         Review Questions
       </header>
 
-      <section className="grid md:grid-cols-2 gap-4">
+      <section className="w-full sm:w-[80%] mx-auto grid md:grid-cols-2 gap-6">
         {quiz.questionSet.map((question, index) => {
           const userAnswer = userAnswers[index];
           const correct = question.correctAnswer.toLowerCase();

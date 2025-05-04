@@ -165,7 +165,7 @@ const QuizApp = () => {
             animate={{ x: 0 }}
             exit={{ x: -600 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-2xl"
+            className="bg-gray-800 rounded-lg shadow-lg p-4 w-full max-w-2xl"
           >
             <Timer
               timeLeft={timeLeft}

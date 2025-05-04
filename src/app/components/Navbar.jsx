@@ -2,64 +2,79 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router"; // Import useRouter at the top
+import { Menu, X } from "lucide-react";
 
 const navLink = [
-  { link: "/courses", name: "Courses" },
+  { link: "/#", name: "Shivam" },
   { link: "/about", name: "About" },
-  { link: "/categories", name: "Blog" },
-  { link: "/contact", name: "Contact Us" },
 ];
 
 const Navbar = () => {
   const [scroll, setScroll] = useState(false);
-  const [color, setColor] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScroll(true);
-        setColor(true);
-      } else {
-        setScroll(false);
-        setColor(false);
-      }
+      setScroll(window.scrollY > 50);
     };
+
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="relative w-full">
-      {/* Navbar */}
-      <div className="absolute top-0 w-full z-20">
-        <div
-          className={`fixed w-full px-15 py-4 flex justify-between items-center transition-all duration-300 ${
-            scroll
-              ? "bg-black/50 text-white shadow-lg"
-              : "bg-transparent text-white"
-          }`}
-        >
-          <Link href="/">
-            <h1 className="text-2xl md:text-3xl font-semibold">𝕊𝕊_𝔹𝕝𝕠𝕘</h1>
-          </Link>
+    <nav className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+      <div
+        className={`flex items-center justify-between px-6 lg:px-10 py-3 transition-all duration-300 ${
+          scroll
+            ? "bg-black/80 text-white shadow-md"
+            : "bg-transparent text-white"
+        }`}
+      >
+        <Link href="/">
+          <img
+            className="w-[140px] h-[40px] object-contain"
+            src="https://quizard.app/logo_light.png"
+            alt="Quizard Logo"
+          />
+        </Link>
 
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex gap-6 items-center">
-            {navLink.map((data) => (
-              <li
-                key={data.name}
-                className="cursor-pointer hover:text-gray-500 uppercase font-bold text-[18px]"
-              >
-                <Link href={data.link}>{data.name}</Link>
-              </li>
-            ))}
-          </ul>
+        {/* Desktop Links */}
+        <ul className="hidden md:flex gap-6 items-center">
+          {navLink.map((data) => (
+            <li
+              key={data.name}
+              className="cursor-pointer hover:text-gray-300 uppercase font-semibold text-sm"
+            >
+              <Link href={data.link}>{data.name}</Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
       </div>
-    </div>
+
+      {/* Mobile Dropdown Menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-black/90 text-white px-6 py-4 space-y-4">
+          {navLink.map((data) => (
+            <Link
+              key={data.name}
+              href={data.link}
+              onClick={() => setMenuOpen(false)}
+              className="block uppercase font-semibold text-sm hover:text-gray-400"
+            >
+              {data.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
   );
 };
 

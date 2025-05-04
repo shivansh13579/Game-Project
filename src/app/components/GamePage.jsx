@@ -23,28 +23,11 @@ export default function GamePage() {
   const [showAll, setShowAll] = useState(false);
   const router = useRouter();
 
-  const visibleCards = showAll ? quizzes : quizzes.slice(0, 8);
+  const visibleCards = quizzes;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] text-white px-6 py-10">
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex gap-2">
-          <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-black">
-            ◀
-          </button>
-          <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-black">
-            ▶
-          </button>
-        </div>
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className="bg-purple-100 text-purple-800 font-bold px-4 py-2 rounded"
-        >
-          {showAll ? "Show Less" : "See All"}
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] text-white px-4 pt-8 pb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {visibleCards.map((card) => (
           <motion.div
             key={card.id}
@@ -61,28 +44,33 @@ export default function GamePage() {
   );
 }
 
-function QuizCard({ thumbnail, title, questionSet, plays, label }) {
+function QuizCard({ title, questionSet, plays, label }) {
+  const thumbnail = questionSet?.[0]?.imageUrl;
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden w-full">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-[220px] mx-auto text-gray-900">
       <div className="relative">
         <img
-          src={thumbnail}
+          src={thumbnail || "/default.jpg"}
           alt={title}
-          className="w-full h-[120px] object-cover"
+          className="w-full h-[120px] md:h-[100px] lg:h-[120px] object-cover"
         />
+
         {label && (
-          <div className="absolute top-2 left-2 bg-yellow-400 text-black text-sm font-bold px-2 py-1 rounded">
+          <div className="absolute inset-x-0 top-2 text-center bg-yellow-400 text-black font-bold text-sm px-2 py-1 mx-2 rounded shadow-md">
             {label}
           </div>
         )}
-        <div className="absolute bottom-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded">
-          {questionSet[0].question} Qs
+
+        <div className="absolute bottom-2 left-2 bg-black text-white text-[10px] font-semibold px-2 py-0.5 rounded-md shadow">
+          {questionSet?.length || 0} Qs
         </div>
-        <div className="absolute bottom-2 right-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded">
+        <div className="absolute bottom-2 right-2 bg-black text-white text-[10px] font-semibold px-2 py-0.5 rounded-md shadow">
           {plays} Plays
         </div>
       </div>
-      <div className="p-3 text-sm font-semibold text-gray-800 line-clamp-2">
+
+      <div className="p-2 text-xs font-semibold text-center line-clamp-2">
         {title}
       </div>
     </div>

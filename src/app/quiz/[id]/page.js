@@ -6,29 +6,6 @@ import { motion } from "framer-motion";
 import { PlayIcon, UsersIcon, BookOpenIcon, ArrowLeftIcon } from "lucide-react";
 import quizzes from "@/app/components/constant/data";
 
-// const dummyCards = [
-//   {
-//     id: 0,
-//     title: "Chinese Culture Quiz: How much do you know about China?",
-//     questions: [
-//       "What is the traditional Chinese New Year called?",
-//       "Which Chinese philosophy emphasizes harmony with nature?",
-//       "What is the name of the famous Chinese wall stretching over 13,000 miles?",
-//       "The Chinese Zodiac is based on a cycle of how many animals?",
-//       "What is the Mid-Autumn Festival traditionally celebrated with?",
-//       "What famous river is often called the 'Mother River' of China?",
-//       "What is the Chinese term for 'hello'?",
-//       "What color is considered lucky in Chinese culture?",
-//       "What is the traditional Chinese drink made from leaves?",
-//       "What is the name of the Chinese art of beautiful handwriting?",
-//     ],
-//     plays: 520,
-//     description: "Answer these simple questions correctly and earn coins",
-//     difficulty: "Easy",
-//     image: "/a.jpg",
-//   },
-// ];
-
 export default function QuizDetailsPage() {
   const params = useParams();
   const router = useRouter();
@@ -53,7 +30,7 @@ export default function QuizDetailsPage() {
 
   return (
     <div className="min-h-screen bg-[#120622] text-white px-6 py-12">
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-10 min-h-[80vh]">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-10 min-h-[80vh] pt-4">
         {/* Left: Image */}
         <motion.div
           className="w-full lg:w-1/2 flex justify-center"
@@ -65,7 +42,7 @@ export default function QuizDetailsPage() {
             <img
               src={quiz.thumbnail}
               alt="Quiz Visual"
-              className="rounded-xl w-full max-w-md h-[400px] object-cover shadow-2xl"
+              className="rounded-xl w-full max-w-md h-[400px] object-center shadow-2xl"
             />
           ) : (
             <div className="w-full max-w-md h-[400px] bg-gray-200 flex items-center justify-center rounded-xl text-black shadow-md">
@@ -85,11 +62,13 @@ export default function QuizDetailsPage() {
             <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
               {quiz.title}
             </h1>
-            {/* <p className="text-lg text-gray-300">{quiz.description}</p> */}
+            <p className="text-lg text-gray-300">
+              Answer these simple questions correctly and earn coins
+            </p>
 
-            {/* <span className="inline-block bg-green-600 px-4 py-1 rounded-full text-sm font-medium shadow-md">
-              Difficulty: {quiz.difficulty}
-            </span> */}
+            <span className="inline-block bg-green-600 px-4 py-1 rounded-full text-sm font-medium shadow-md">
+              Difficulty: {quiz.label || "Hard"}
+            </span>
 
             <motion.div
               className="flex flex-col sm:flex-row gap-4 mt-6 justify-center"

@@ -80,14 +80,21 @@ export default function TimerPage() {
           {!started ? (
             <motion.button
               key="start"
-              initial={{ scale: 0.5, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              whileHover={{
+                scale: 1.08,
+                rotate: -1,
+                boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.2)",
+              }}
+              whileTap={{ scale: 0.95, rotate: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 180,
+                damping: 15,
+              }}
               onClick={handleStart}
-              className="bg-white text-black px-6 py-3 text-xl rounded-lg font-semibold hover:bg-gray-200 transition"
+              className="bg-white text-black px-6 py-3 text-xl rounded-lg font-semibold transition duration-300 hover:bg-gray-100"
             >
               Start Quiz
             </motion.button>

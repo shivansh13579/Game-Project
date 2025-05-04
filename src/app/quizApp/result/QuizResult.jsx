@@ -19,7 +19,7 @@ const QuizResult = () => {
 
   return (
     <div className="min-h-screen bg-[#0c2c33] text-white p-6">
-      <header className="text-yellow-400 text-2xl md:text-3xl font-bold mb-8 flex items-center justify-center gap-4">
+      <header className="text-yellow-400 text-2xl md:text-3xl font-bold my-8 py-3 flex items-center justify-center gap-4">
         <button onClick={() => router.back()}>
           <ArrowLeft className="hover:text-white transition duration-200" />
         </button>

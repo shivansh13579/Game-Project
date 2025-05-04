@@ -17,17 +17,18 @@ export function Header() {
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-6xl font-extrabold leading-tight max-w-3xl"
+          className="text-3xl sm:text-5xl font-extrabold leading-tight max-w-4xl text-center"
         >
-          Launch your website in <br className="hidden sm:block" />
-          <span className="text-white">hours, not days</span>
+          Let's Play the
+          <br className="hidden sm:block" />
+          <span className="text-white">quiz</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="mt-6 text-lg sm:text-xl max-w-xl text-gray-300"
+          className="mt-6 text-base sm:text-lg max-w-xl text-gray-300 text-center"
         >
           With AI, you can launch your website in hours, not days. Try our
           state-of-the-art AI tools.
@@ -37,13 +38,13 @@ export function Header() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-8 flex gap-4 flex-col sm:flex-row"
+          className="mt-8 flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center"
         >
-          <button className="bg-black text-white font-semibold px-6 py-3 rounded-md hover:bg-gray-800 transition">
-            Explore Now
+          <button className="bg-black text-white font-semibold px-6 py-3 rounded-md hover:bg-gray-800 transition w-full sm:w-auto">
+            Create Quiz
           </button>
-          <button className="bg-white text-black font-semibold px-6 py-3 rounded-md hover:bg-gray-100 transition border border-gray-300">
-            Contact Support
+          <button className="bg-white text-black font-semibold px-6 py-3 rounded-md hover:bg-gray-100 transition w-full sm:w-auto border border-gray-300">
+            Generate Quiz
           </button>
         </motion.div>
       </div>
