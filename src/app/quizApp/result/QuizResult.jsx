@@ -1,24 +1,35 @@
 "use client";
+import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ArrowLeft, Share2, ArrowRight } from "lucide-react";
+import { ArrowLeft, Share2, ArrowRight, X } from "lucide-react";
+import SharePopup from "@/app/components/SharePopup";
 
 const QuizResult = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const [copyText, setCopyText] = useState("Copy");
 
   const score = parseInt(searchParams.get("score")) || 0;
   const totalQuestions = parseInt(searchParams.get("total")) || 1;
   const unattempted = parseInt(searchParams.get("unattempted")) || 0;
   const id = parseInt(searchParams.get("quiz")) || [];
 
+  const shareLink = `https://game-project-no4s.vercel.app/quizApp/result?score=${score}&total=${totalQuestions}&unattempted=${unattempted}&quiz=${id}`;
   const correctAnswers = score;
   const incorrectAnswers = totalQuestions - score;
   const accuracy = ((correctAnswers / totalQuestions) * 100).toFixed(2);
-  const timeSpent = totalQuestions * 2; // Replace this with real tracking logic
+  const timeSpent = totalQuestions * 2;
   const timePerQues = timeSpent / totalQuestions;
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shareLink);
+    setCopyText("Copied!");
+    setTimeout(() => setCopyText("Copy"), 2000);
+  };
+
   return (
-    <div className="min-h-screen bg-[#0c2c33] text-white p-6">
+    <div className="min-h-screen bg-[#0c2c33] text-white p-6 relative">
       <header className="text-yellow-400 text-2xl md:text-3xl font-bold my-8 py-3 flex items-center justify-center gap-4">
         <button onClick={() => router.back()}>
           <ArrowLeft className="hover:text-white transition duration-200" />
@@ -43,24 +54,37 @@ const QuizResult = () => {
 
       <section className="max-w-3xl mx-auto mt-8 space-y-4">
         <div className="flex flex-col md:flex-row gap-4">
-          <button className="flex-1 bg-purple-800 text-white px-5 py-3 rounded-lg flex items-center justify-between hover:bg-purple-700 transition">
+          <button
+            onClick={() => setShowModal(true)}
+            className="flex-1 bg-purple-800 text-white px-5 py-3 rounded-lg flex items-center justify-between hover:bg-purple-700 transition"
+          >
             Share Score <Share2 size={18} />
           </button>
           <button
-            onClick={() => {
+            onClick={() =>
               router.push(
                 `/quizApp/review?score=${score}&total=${totalQuestions}&unattempted=${unattempted}&id=${id}`
-              );
-            }}
+              )
+            }
             className="flex-1 bg-purple-800 text-white px-5 py-3 rounded-lg flex items-center justify-between hover:bg-purple-700 transition"
           >
             Review Questions <ArrowRight size={18} />
           </button>
         </div>
-        <button className="w-full bg-purple-800 text-white px-5 py-3 rounded-lg flex items-center justify-between hover:bg-purple-700 transition">
+        <button
+          onClick={() => router.push(`/quizApp/leaderboard?score=${score}`)}
+          className="w-full bg-purple-800 text-white px-5 py-3 rounded-lg flex items-center justify-between hover:bg-purple-700 transition"
+        >
           Leaderboard <ArrowRight size={18} />
         </button>
       </section>
+      <SharePopup
+        showModal={showModal}
+        setShowModal={setShowModal}
+        shareLink={shareLink}
+        handleCopy={handleCopy}
+        copyText={copyText}
+      />
     </div>
   );
 };
