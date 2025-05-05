@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ArrowLeft, Share2, ArrowRight, X } from "lucide-react";
 import SharePopup from "@/app/components/SharePopup";
@@ -9,6 +9,9 @@ const QuizResult = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [copyText, setCopyText] = useState("Copy");
+
+  // State for loading
+  const [isLoading, setIsLoading] = useState(true);
 
   const score = parseInt(searchParams.get("score")) || 0;
   const totalQuestions = parseInt(searchParams.get("total")) || 1;
@@ -27,6 +30,21 @@ const QuizResult = () => {
     setCopyText("Copied!");
     setTimeout(() => setCopyText("Copy"), 2000);
   };
+
+  // Simulate loading for a few seconds before showing the data
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Set loading time to 2 seconds
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#0c2c33] text-white flex items-center justify-center">
+        <div className="text-lg text-yellow-400 font-bold">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0c2c33] text-white p-6 relative">

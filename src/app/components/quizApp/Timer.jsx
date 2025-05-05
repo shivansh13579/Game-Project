@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Timer = ({
@@ -12,28 +12,41 @@ const Timer = ({
   const stroke = 4;
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
-  const progress = (timeLeft / 10) * 100; // adjust divisor to max time
+  const progress = (timeLeft / 10) * 100;
+
+  const timeoutRef = useRef(null);
+  const hasUnmounted = useRef(false);
 
   useEffect(() => {
+    hasUnmounted.current = false;
+
     if (quizFinished || showNextButton) return;
 
     if (timeLeft === 0) {
-      sound.timer.play();
+      if (!hasUnmounted.current) {
+        sound?.timer?.play();
+      }
       return;
     }
 
-    const timer = setTimeout(() => {
-      sound.timer.play();
-      setTimeLeft((prev) => prev - 1);
+    timeoutRef.current = setTimeout(() => {
+      if (!hasUnmounted.current) {
+        sound?.timer?.play();
+        setTimeLeft((prev) => prev - 1);
+      }
     }, 1000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      hasUnmounted.current = true;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [timeLeft, setTimeLeft, sound, showNextButton, quizFinished]);
 
   return (
     <div className="flex justify-end pr-4 mb-1">
       <div className="relative w-20 h-20">
-        {/* SVG Circle */}
         <svg height="100%" width="100%">
           <circle
             stroke="#ccc"
@@ -56,7 +69,6 @@ const Timer = ({
           />
         </svg>
 
-        {/* Number with animation */}
         <div className="absolute inset-0 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div

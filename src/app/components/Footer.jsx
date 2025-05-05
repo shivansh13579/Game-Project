@@ -8,8 +8,14 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm text-gray-300 dark:text-gray-300">
         {/* Column 1 */}
         <div>
-          <h3 className="text-lg font-semibold mb-2 text-white">Aceternity</h3>
-          <p className="text-sm leading-relaxed text-gray-400">
+          <Link href="/">
+            <img
+              className="w-[120px] h-[30px] object-contain"
+              src="https://quizard.app/logo_light.png"
+              alt="Quizard Logo"
+            />
+          </Link>
+          <p className="text-sm leading-relaxed text-gray-400 pt-3">
             Beautifully animated UI components for modern web applications.
           </p>
         </div>

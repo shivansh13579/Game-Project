@@ -4,10 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
-const navLink = [
-  { link: "/#", name: "Shivam" },
-  { link: "/about", name: "About" },
-];
+const navLink = [{ link: "/#", name: "Shivam" }];
 
 const Navbar = () => {
   const [scroll, setScroll] = useState(false);

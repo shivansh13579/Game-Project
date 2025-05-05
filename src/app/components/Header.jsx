@@ -30,8 +30,7 @@ export function Header() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="mt-6 text-base sm:text-lg max-w-xl text-gray-300 text-center"
         >
-          With AI, you can launch your website in hours, not days. Try our
-          state-of-the-art AI tools.
+          Create interactive quizzes in minutes with our online quiz maker
         </motion.p>
 
         <motion.div
